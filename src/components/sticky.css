@@ -1,0 +1,49 @@
+/* ── Mobile sticky call bar ─────────────────────────────────────────────────
+   Layout: Sticky or Floating CTA Bar. Animation: Sticky Bar Slide-In on
+   Scroll Threshold — it holds back until the visitor is past the hero so it
+   never competes with the fold.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.sticky-call {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 80;
+  display: none;
+  grid-template-columns: minmax(0, 1fr) auto;
+  background: var(--surface-ink);
+  transform: translateY(100%);
+  transition: transform 420ms var(--ease-out-quart);
+}
+.sticky-call[data-shown='true'] { transform: none; }
+.sticky-call__edge { position: absolute; inset-inline: 0; top: 0; height: 2px; }
+
+.sticky-call__main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  min-height: 58px;
+  padding-inline: var(--s-5);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-wide);
+  text-transform: uppercase;
+  color: var(--text-on-ink);
+}
+.sticky-call__main .lucide { width: var(--icon); height: var(--icon); }
+
+.sticky-call__alt {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  color: var(--text-on-ink);
+  border-inline-start: 1px solid var(--rule-on-ink);
+}
+.sticky-call__alt .lucide { width: var(--icon); height: var(--icon); }
+
+@media (max-width: 900px) {
+  .sticky-call { display: grid; }
+  body { padding-bottom: 0; }
+}

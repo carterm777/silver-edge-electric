@@ -1,0 +1,313 @@
+/* ── Page-level composition ─────────────────────────────────────────────────
+   Shared primitives only: the type defaults, the eyebrow, the buttons, the
+   silver-edge rule, the framed photo insert, and the site-specific motion
+   techniques written for this build. Every section's own rules live beside
+   its component, namespaced under one root class.
+   ───────────────────────────────────────────────────────────────────────── */
+
+html { font-size: 100%; }
+
+body {
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-book);
+  line-height: var(--lh-body);
+  letter-spacing: var(--tr-none);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-tight);
+  line-height: var(--lh-tight);
+}
+h3, h4 { letter-spacing: var(--tr-snug); line-height: var(--lh-head); }
+
+::selection { background: var(--v-800); color: var(--v-000); }
+
+/* ── Skip link ──────────────────────────────────────────────────────────── */
+.skip-link {
+  background: var(--surface-ink);
+  color: var(--text-on-ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-wider);
+  text-transform: uppercase;
+}
+
+/* ── Eyebrow — the page's utility type role ─────────────────────────────── */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-widest);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  line-height: 1;
+}
+.eyebrow::before {
+  content: '';
+  width: 26px;
+  height: 1px;
+  background: var(--v-500);
+  flex: none;
+}
+.eyebrow--ink { color: var(--text-on-ink-3); }
+.eyebrow--ink::before { background: var(--v-400); }
+.eyebrow--plain::before { display: none; }
+
+/* ── Section heading block ──────────────────────────────────────────────── */
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+.sec-head h2 { font-size: var(--fs-h2); max-width: 20ch; }
+.sec-head p {
+  font-size: var(--fs-lead);
+  color: var(--text-muted);
+  font-weight: var(--fw-light);
+  max-width: 56ch;
+}
+.sec-head--ink h2 { color: var(--text-on-ink); }
+.sec-head--ink p { color: var(--text-on-ink-2); }
+
+/* ── The silver edge — a hairline that reads as a machined bevel ────────── */
+.edge {
+  position: relative;
+  height: 1px;
+  width: 100%;
+  background: var(--edge-light);
+  overflow: hidden;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 820ms var(--ease-out-quart) var(--reveal-delay);
+}
+.edge--ink { background: var(--edge-ink); }
+[data-in='true'] .edge { transform: scaleX(1); }
+
+/* Site-specific motion 1 — Silver Edge Sweep: a specular highlight travels
+   the rule once, just after it finishes drawing. Composed from Sequential
+   Line Draw + Underline Sweep. Reduced motion: rule at full width, no sweep. */
+.edge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 30%;
+  height: 100%;
+  background: var(--edge-spec);
+  opacity: 0;
+}
+[data-in='true'] .edge::after {
+  animation: edge-spec 1150ms var(--ease-out-quart) calc(var(--reveal-delay) + 300ms) 1 both;
+}
+@keyframes edge-spec {
+  0%   { left: -30%; opacity: 0.85; }
+  100% { left: 104%; opacity: 0; }
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+.btn {
+  --btn-bg: var(--v-800);
+  --btn-fg: var(--v-000);
+  --btn-bd: var(--v-800);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  padding: 0.95rem var(--s-6);
+  min-height: 52px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1px solid var(--btn-bd);
+  border-radius: var(--r-1);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-wide);
+  text-transform: uppercase;
+  line-height: 1;
+  cursor: pointer;
+  overflow: hidden;
+  text-align: center;
+  transition:
+    background-color var(--hover-dur) var(--ease-out-cubic),
+    color var(--hover-dur) var(--ease-out-cubic),
+    border-color var(--hover-dur) var(--ease-out-cubic),
+    box-shadow var(--hover-dur) var(--ease-out-cubic);
+}
+.btn .lucide { width: var(--icon); height: var(--icon); }
+
+/* Site-specific motion 2 — Edge Wipe: a silver hairline sweeps across the
+   button's base edge on hover instead of a colour flash, which a monochrome
+   palette cannot supply. */
+.btn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--edge-ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 380ms var(--ease-out-quart);
+}
+.btn:hover::after { transform: scaleX(1); }
+
+.btn--primary:hover { background: var(--v-900); border-color: var(--v-900); }
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--text-strong);
+  --btn-bd: var(--rule-firm);
+}
+.btn--ghost::after { background: var(--edge-light); }
+.btn--ghost:hover { border-color: var(--v-800); background: var(--v-050); }
+
+.btn--on-ink {
+  --btn-bg: var(--v-000);
+  --btn-fg: var(--v-900);
+  --btn-bd: var(--v-000);
+}
+.btn--on-ink::after { background: var(--edge-light); }
+.btn--on-ink:hover { background: var(--v-150); border-color: var(--v-150); }
+
+.btn--ghost-ink {
+  --btn-bg: transparent;
+  --btn-fg: var(--v-000);
+  --btn-bd: var(--rule-on-ink-2);
+}
+.btn--ghost-ink:hover {
+  border-color: var(--v-000);
+  background: color-mix(in srgb, var(--brand-light) 8%, transparent);
+}
+
+.btn--block { width: 100%; }
+.btn--sm { min-height: 42px; padding: 0.6rem var(--s-5); font-size: var(--fs-label); }
+
+/* ── Text link with an underline that sweeps in ─────────────────────────── */
+.tlink {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  padding-bottom: 2px;
+}
+.tlink::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 260ms var(--ease-out-quart), opacity 260ms;
+}
+.tlink:hover::after { transform: scaleX(1); opacity: 1; }
+
+/* ── Framed photo insert (DIRECTION's featured image technique) ─────────── */
+.frame {
+  position: relative;
+  padding: var(--s-3);
+  background: var(--surface-page);
+  border: 1px solid var(--rule-hair);
+  border-radius: var(--r-1);
+}
+.frame > .photo { width: 100%; height: 100%; }
+.frame::after {
+  content: '';
+  position: absolute;
+  left: var(--s-3); right: var(--s-3);
+  top: 0;
+  height: 2px;
+  background: var(--edge-light);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 620ms var(--ease-out-quart) 320ms;
+}
+[data-in='true'] .frame::after { transform: scaleX(1); }
+.frame--ink {
+  background: color-mix(in srgb, var(--brand-light) 6%, transparent);
+  border-color: var(--rule-on-ink);
+}
+.frame--ink::after { background: var(--edge-ink); }
+
+/* ── Depth Settle, tuned for this page (DIRECTION's featured motion) ────── */
+.photo { overflow: hidden; position: relative; background: var(--surface-sunken); }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+[data-reveal='settle'] {
+  transform: scale(1.045);
+  filter: blur(5px);
+  transition-duration: 880ms;
+}
+
+/* Site-specific motion 3 — Value Lift: on a monochrome page a card cannot
+   lift with colour, so it lifts with VALUE — the ground steps one notch and
+   the leading hairline extends to full height. 2px translate only. */
+.vlift {
+  position: relative;
+  transition:
+    background-color var(--hover-dur) var(--ease-out-cubic),
+    border-color var(--hover-dur) var(--ease-out-cubic),
+    box-shadow var(--hover-dur) var(--ease-out-cubic),
+    transform var(--hover-dur) var(--ease-out-cubic);
+}
+.vlift::before {
+  content: '';
+  position: absolute;
+  left: -1px; top: 0;
+  width: 2px; height: 100%;
+  background: var(--v-800);
+  transform: scaleY(0.2);
+  transform-origin: top center;
+  transition: transform 340ms var(--ease-out-quart);
+}
+.vlift:hover, .vlift:focus-within {
+  background: var(--surface-page);
+  border-color: var(--rule-firm);
+  box-shadow: var(--e-2);
+  transform: translate3d(0, -2px, 0);
+}
+.vlift:hover::before, .vlift:focus-within::before { transform: scaleY(1); }
+
+/* ── Placeholder note — used once, on the reviews section ───────────────── */
+.placeholder-note {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-nano);
+  letter-spacing: var(--tr-wider);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  border: 1px dashed var(--rule-firm);
+  border-radius: var(--r-1);
+  padding: 0.45rem var(--s-3);
+  line-height: 1;
+}
+
+/* ── Reassurance microcopy ──────────────────────────────────────────────── */
+.reassure {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-2);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+  color: var(--text-faint);
+  font-weight: var(--fw-light);
+}
+.reassure .lucide { width: 14px; height: 14px; margin-top: 3px; flex: none; }
+
+/* ── Utility ────────────────────────────────────────────────────────────── */
+.list-reset { list-style: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .edge { transform: scaleX(1); }
+  .edge::after { animation: none; opacity: 0; }
+  .vlift:hover, .vlift:focus-within { transform: none; }
+}

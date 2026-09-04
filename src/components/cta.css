@@ -1,0 +1,155 @@
+/* ── Final CTA ──────────────────────────────────────────────────────────────
+   Layout: Full-Width CTA Banner. Visual style: Dark Cinematic CTA Background
+   (Full-Bleed Background Photo with Foreground Content).
+   Animation: Banner Background Slow Pan behind a grouped entrance, plus a
+   single Cursor-Reactive Glow — the page's only one, on its darkest panel.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.cta {
+  position: relative;
+  background: var(--surface-black);
+  color: var(--text-on-ink-2);
+  overflow: hidden;
+}
+
+.cta__bed { position: absolute; inset: 0; }
+.cta__bed img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 58%;
+  animation: cta-pan 40s ease-in-out infinite alternate;
+}
+@keyframes cta-pan {
+  from { transform: scale(1.06) translate3d(1%, 0, 0); }
+  to   { transform: scale(1.12) translate3d(-1.5%, -1%, 0); }
+}
+.cta__scrim { position: absolute; inset: 0; background: var(--scrim-cta); }
+
+.cta__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: var(--s-11);
+  align-items: center;
+  --glow-size: 420px;
+  --glow-color: color-mix(in srgb, var(--brand-light) 10%, transparent);
+}
+
+.cta__copy { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5); justify-items: start; }
+.cta__copy h2 {
+  font-size: var(--fs-h2);
+  color: var(--v-000);
+  max-width: 16ch;
+  text-shadow: var(--text-shadow-ink);
+}
+.cta__lede {
+  font-size: var(--fs-lead);
+  font-weight: var(--fw-light);
+  line-height: 1.55;
+  color: var(--text-on-ink-2);
+  max-width: 46ch;
+}
+.cta__action {
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-wider);
+  text-transform: uppercase;
+  color: var(--v-300);
+}
+.cta__buttons { display: flex; flex-wrap: wrap; gap: var(--s-4); margin-block-start: var(--s-2); }
+
+/* ── Callback capture ───────────────────────────────────────────────────── */
+.cta__callback {
+  position: relative;
+  padding: var(--s-8) var(--s-7) var(--s-7);
+  background: color-mix(in srgb, var(--brand-dark) 62%, transparent);
+  border: 1px solid var(--rule-on-ink);
+  border-radius: var(--r-1);
+  backdrop-filter: blur(6px);
+}
+.cta__callback-edge { position: absolute; inset-inline: 0; top: 0; }
+.cta__callback h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-med);
+  color: var(--v-000);
+}
+.cta__callback-note {
+  margin-block-start: var(--s-3);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-light);
+  line-height: 1.55;
+  color: var(--text-on-ink-2);
+}
+
+.cta__field {
+  margin-block-start: var(--s-6);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  border-block-end: 1px solid var(--rule-on-ink-2);
+  transition: border-color var(--dur-mid) var(--ease-out-cubic);
+}
+.cta__field:focus-within { border-block-end-color: var(--v-000); }
+.cta__input {
+  padding: var(--s-3) 0;
+  background: transparent;
+  border: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--v-000);
+}
+.cta__input::placeholder { color: var(--text-on-ink-3); }
+.cta__input:focus-visible { outline: 2px solid var(--v-000); outline-offset: 4px; }
+.cta__go {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  color: var(--v-000);
+  transition: transform var(--dur-mid) var(--ease-out-quart), opacity var(--dur-fast);
+}
+.cta__go:hover { transform: translateX(3px); }
+.cta__err {
+  margin-block-start: var(--s-3);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-med);
+  color: var(--v-000);
+  border-left: 2px solid var(--v-000);
+  padding-left: var(--s-2);
+}
+.cta__reassure { margin-block-start: var(--s-5); color: var(--text-on-ink-3); }
+
+.cta__done { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); justify-items: start; }
+.cta__done-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--rule-on-ink-2);
+  border-radius: var(--r-pill);
+  color: var(--v-000);
+  animation: cta-mark 520ms var(--ease-out-quart) both;
+}
+@keyframes cta-mark {
+  from { opacity: 0; transform: scale(0.86); }
+  to   { opacity: 1; transform: none; }
+}
+.cta__done .cta__callback-note { margin-block-start: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cta__bed img { animation: none; }
+  .cta__done-mark { animation: none; }
+}
+
+@media (max-width: 1024px) {
+  .cta__inner { grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
+  .cta__copy h2 { max-width: 20ch; }
+}
+
+@media (max-width: 900px) {
+  .cta__callback { padding: var(--s-6) var(--s-5); }
+  .cta__buttons { width: 100%; }
+  .cta__buttons .btn { flex: 1 1 auto; }
+}

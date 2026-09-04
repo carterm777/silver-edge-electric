@@ -1,0 +1,131 @@
+/* ── FAQ ────────────────────────────────────────────────────────────────────
+   Layout: Two-Column Category Split — the five questions sort cleanly into
+   scope questions and estimate/scheduling questions, so the split carries
+   information rather than being decorative.
+   Visual style: Minimal Line-Divided Accordion.
+   Animation: Staggered Fade-In per column, Accordion Expand with a height
+   transition, Icon Morph (plus rotating to a cross) on the trigger.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.faq {
+  background: var(--surface-half);
+  border-block-start: 1px solid var(--rule-soft);
+}
+
+.faq__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-7);
+  flex-wrap: wrap;
+}
+
+.faq__cols {
+  margin-block-start: var(--s-9);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-10);
+  align-items: start;
+}
+
+.faq__cat {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-widest);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-block-end: var(--s-4);
+}
+.faq__cat-edge { display: block; }
+
+.faq__items { display: grid; }
+.faq__item { border-block-end: 1px solid var(--rule-hair); }
+
+.faq__q { margin: 0; }
+.faq__trigger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--s-5);
+  width: 100%;
+  padding-block: var(--s-5);
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-snug);
+  line-height: 1.35;
+  color: var(--text-strong);
+  transition: color var(--dur-fast) var(--ease-out-cubic);
+}
+.faq__trigger:hover { color: var(--v-950); }
+.faq__plus {
+  width: var(--icon);
+  height: var(--icon);
+  color: var(--text-faint);
+  margin-top: 3px;
+  transition: transform var(--dur-mid) var(--ease-in-out), color var(--dur-fast);
+}
+.faq__item[data-open='true'] .faq__plus { transform: rotate(45deg); color: var(--text-strong); }
+
+.faq__a {
+  padding-block-end: var(--s-6);
+  padding-inline-end: var(--s-8);
+  animation: faq-open 420ms var(--ease-out-quart) both;
+}
+@keyframes faq-open {
+  from { opacity: 0; transform: translate3d(0, -6px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+.faq__a p {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-light);
+  line-height: 1.68;
+  color: var(--text-muted);
+  max-width: 52ch;
+}
+
+/* A quiet last ask, placed where the shorter column would otherwise trail off. */
+.faq__aside {
+  margin-block-start: var(--s-7);
+  padding: var(--s-6);
+  background: var(--surface-page);
+  border: 1px solid var(--rule-hair);
+  border-radius: var(--r-1);
+}
+.faq__aside-lead {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-light);
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 46ch;
+}
+.faq__aside-links {
+  margin-block-start: var(--s-5);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-6);
+}
+.faq__aside-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-wide);
+  text-transform: uppercase;
+  color: var(--text-strong);
+}
+.faq__aside-links .lucide { width: 15px; height: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__a { animation: none; }
+}
+
+@media (max-width: 900px) {
+  .faq__cols { grid-template-columns: minmax(0, 1fr); gap: var(--s-8); margin-block-start: var(--s-7); }
+  .faq__head { align-items: flex-start; }
+  .faq__a { padding-inline-end: var(--s-6); }
+}

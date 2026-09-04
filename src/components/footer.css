@@ -1,0 +1,120 @@
+/* ── Footer ─────────────────────────────────────────────────────────────────
+   Layout: Minimal Two-Column Footer expanded to the brief's four columns.
+   Visual style: Minimal Light Footer with Line Dividers — a quiet exit after
+   the black CTA rather than a second dark slab.
+   Animation: Link Column Staggered Fade-In, left to right, one group per
+   column; Underline Sweep on every link as its resting-state behaviour.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.ftr {
+  background: var(--surface-page);
+  padding-block: var(--s-11) var(--s-8);
+  border-block-start: 1px solid var(--rule-hair);
+}
+
+.ftr__cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  gap: var(--s-9);
+}
+.ftr__cell { min-width: 0; }
+
+.ftr__col { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: var(--s-4); }
+.ftr__col h3 {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-widest);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.ftr__col-edge { display: block; margin-block-end: var(--s-1); }
+
+.ftr__mission {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-light);
+  line-height: 1.66;
+  color: var(--text-muted);
+  max-width: 42ch;
+}
+
+.ftr__social { display: flex; gap: var(--s-3); margin-block-start: var(--s-2); }
+.ftr__social a {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--rule-hair);
+  border-radius: var(--r-1);
+  color: var(--text-muted);
+  transition:
+    color var(--dur-mid) var(--ease-out-cubic),
+    border-color var(--dur-mid) var(--ease-out-cubic),
+    background-color var(--dur-mid) var(--ease-out-cubic),
+    transform var(--dur-mid) var(--ease-out-quart);
+}
+.ftr__social a:hover {
+  color: var(--text-on-ink);
+  background: var(--surface-ink);
+  border-color: var(--surface-ink);
+  transform: translateY(-2px);
+}
+.ftr__social .lucide { width: 17px; height: 17px; }
+
+.ftr__links, .ftr__contact { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+.ftr__links a, .ftr__contact a {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-light);
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-out-cubic);
+}
+.ftr__links a:hover, .ftr__contact a:hover { color: var(--text-strong); }
+
+.ftr__contact li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--s-3);
+  align-items: start;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-light);
+  color: var(--text-muted);
+}
+.ftr__contact .lucide { width: 15px; height: 15px; margin-top: 3px; color: var(--text-faint); }
+
+.ftr__base {
+  margin-block-start: var(--s-10);
+  padding-block-start: var(--s-6);
+  border-block-start: 1px solid var(--rule-hair);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-6);
+  flex-wrap: wrap;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-light);
+  color: var(--text-faint);
+}
+.ftr__note { max-width: 40ch; }
+.ftr__top {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--fs-nano);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-out-cubic);
+}
+.ftr__top:hover { color: var(--text-strong); }
+.ftr__top .lucide { width: 14px; height: 14px; }
+
+@media (max-width: 1024px) {
+  .ftr__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-8); }
+}
+
+@media (max-width: 620px) {
+  .ftr { padding-block: var(--s-9) var(--s-7); }
+  .ftr__cols { grid-template-columns: minmax(0, 1fr); gap: var(--s-7); }
+  .ftr__base { margin-block-start: var(--s-8); }
+}

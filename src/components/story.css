@@ -1,0 +1,130 @@
+/* ── Our Story ──────────────────────────────────────────────────────────────
+   Layout: Split Story with Sticky Photo — the framed crew photograph holds
+   position while the narrative scrolls past it.
+   Visual style: Minimal Line Timeline + a Framed Photo Insert.
+   Animation: Story Section Sticky Scroll Progress, with each beat governed by
+   a Progressive Reveal Scrub tied to its distance from viewport centre.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.story { background: var(--surface-page); }
+
+.story__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);
+  gap: var(--s-12);
+  align-items: start;
+}
+
+.story__aside {
+  grid-template-columns: minmax(0, 1fr);
+  position: sticky;
+  top: calc(var(--navbar-h) + var(--s-8));
+  display: grid;
+  gap: var(--s-7);
+}
+.story__photo { display: block; aspect-ratio: 4 / 3; }
+.story__frame figcaption {
+  margin-block-start: var(--s-3);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-light);
+  color: var(--text-faint);
+}
+
+.story__stat {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--s-5);
+  align-items: start;
+  padding-block-start: var(--s-6);
+  border-block-start: 1px solid var(--rule-hair);
+}
+.story__stat-figure {
+  font-family: var(--font-display);
+  font-size: var(--fs-numeral);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-tight);
+  line-height: 0.9;
+  color: var(--text-strong);
+}
+.story__stat-label {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-light);
+  line-height: 1.5;
+  color: var(--text-faint);
+}
+
+/* ── Narrative ──────────────────────────────────────────────────────────── */
+.story__main { min-width: 0; }
+.story__head { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+.story__head h2 { font-size: var(--fs-h2); max-width: 18ch; }
+
+.story__beats {
+  margin-block-start: var(--s-9);
+  position: relative;
+  padding-inline-start: var(--s-8);
+}
+.story__beats::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--rule-hair);
+}
+
+.story__beat {
+  position: relative;
+  padding-block-end: var(--s-9);
+  opacity: calc(0.62 + (var(--scrub, 1) * 0.38));
+  transition: opacity 160ms linear;
+}
+.story__beat:last-child { padding-block-end: 0; }
+.story__tick {
+  position: absolute;
+  left: calc(var(--s-8) * -1);
+  top: 8px;
+  width: 9px;
+  height: 9px;
+  margin-left: -4px;
+  border-radius: var(--r-pill);
+  background: var(--surface-page);
+  border: 1px solid var(--v-600);
+  transform: scale(calc(0.7 + (var(--scrub, 1) * 0.3)));
+  transition: transform 160ms var(--ease-out-quart), background-color 200ms;
+}
+.story__beat h3 {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-widest);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-block-end: var(--s-4);
+}
+.story__beat p {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-light);
+  line-height: 1.72;
+  color: var(--text-body);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story__beat { opacity: 1; }
+  .story__tick { transform: none; }
+}
+
+@media (max-width: 1024px) {
+  .story__grid { grid-template-columns: minmax(0, 1fr); gap: var(--s-9); }
+  .story__aside { position: static; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); align-items: start; }
+}
+
+@media (max-width: 900px) {
+  .story__aside { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  .story__beats { padding-inline-start: var(--s-7); margin-block-start: var(--s-7); }
+  .story__tick { left: calc(var(--s-7) * -1); }
+  .story__beat { padding-block-end: var(--s-8); }
+  .story__beat p { font-size: var(--fs-base); line-height: 1.68; }
+}

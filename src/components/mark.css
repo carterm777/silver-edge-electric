@@ -1,0 +1,57 @@
+/* ── Wordmark ───────────────────────────────────────────────────────────── */
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  line-height: 1;
+}
+.mark__glyph {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  overflow: visible;
+}
+.mark__plate { fill: var(--v-800); stroke: none; }
+.mark__facet { fill: var(--v-600); stroke: none; }
+.mark__bevel {
+  fill: none;
+  stroke: var(--v-000);
+  stroke-width: 1.6;
+  stroke-linecap: square;
+}
+.mark__type {
+  display: grid;
+  gap: 3px;
+  font-family: var(--font-display);
+}
+.mark__name {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-wide);
+  text-transform: uppercase;
+  color: var(--text-strong);
+  line-height: 1;
+}
+.mark__sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-nano);
+  font-weight: var(--fw-book);
+  letter-spacing: var(--tr-widest);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  line-height: 1;
+}
+
+.mark[data-tone='light'] .mark__plate { fill: var(--v-000); }
+.mark[data-tone='light'] .mark__facet { fill: var(--v-300); }
+.mark[data-tone='light'] .mark__bevel { stroke: var(--v-800); }
+.mark[data-tone='light'] .mark__name { color: var(--v-000); }
+.mark[data-tone='light'] .mark__sub { color: var(--text-on-ink-3); }
+
+.mark[data-compact='true'] .mark__type { display: none; }
+
+@media (max-width: 420px) {
+  .mark { gap: var(--s-2); }
+  .mark__glyph { width: 26px; height: 26px; }
+  .mark__name { font-size: var(--fs-caption); }
+}

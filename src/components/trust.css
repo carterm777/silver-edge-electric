@@ -1,0 +1,82 @@
+/* ── Trust Badges Banner ────────────────────────────────────────────────────
+   Layout: Certification Badge Wall pared to exactly four, hairline-boxed,
+   generous internal padding. Visual style: Badge or Seal treatment over a
+   brushed-steel texture (Background Pattern Behind Foreground). Animation:
+   Badge Fade and Scale-In on Scroll, staggered badge by badge.
+
+   Every icon is the same box, the same stroke weight and the same optical
+   position in its cell, so the row reads as one system.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.tb {
+  position: relative;
+  background: var(--surface-stone);
+  border-block: 1px solid var(--rule-hair);
+  overflow: hidden;
+}
+.tb__texture { position: absolute; inset: 0; opacity: 0.16; }
+.tb__texture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(1) contrast(1.05);
+}
+.tb__inner { position: relative; z-index: 1; }
+
+.tb__label { display: flex; align-items: center; gap: var(--s-5); }
+.tb__label h2 {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-widest);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+.tb__label-edge { flex: 1 1 auto; }
+
+.tb__wall {
+  margin-block-start: var(--s-6);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-5);
+}
+.tb__cell { display: flex; }
+
+.tb__badge {
+  flex: 1 1 auto;
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+  padding: var(--s-6) var(--s-6) var(--s-7);
+  background: color-mix(in srgb, var(--brand-light) 66%, transparent);
+  border: 1px solid var(--rule-hair);
+  border-radius: var(--r-1);
+}
+.tb__icon {
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+  stroke-width: var(--icon-stroke);
+  color: var(--v-800);
+}
+.tb__badge-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-snug);
+  line-height: 1.25;
+  color: var(--text-strong);
+}
+.tb__badge-note {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-light);
+  line-height: 1.45;
+  color: var(--text-faint);
+}
+
+@media (max-width: 900px) {
+  .tb__wall { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); }
+  .tb__badge { padding: var(--s-5) var(--s-4) var(--s-6); gap: var(--s-2); }
+  .tb__badge-note { display: none; }
+}

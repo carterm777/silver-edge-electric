@@ -1,0 +1,211 @@
+/* ── Silver Edge Electric — design tokens ───────────────────────────────────
+   The five brand colours and the two typefaces are fixed by the brief. The
+   palette is genuinely monochrome, so this file's real work is a VALUE RAMP
+   derived only from those five anchors (via color-mix, so nothing here is an
+   invented hue), a type scale with three roles, and one material accent —
+   "the silver edge", a gradient hairline that reads as a machined bevel.
+
+   Component CSS references these variables and never a raw value.
+   ───────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Brand anchors — from PROMPT.txt, fixed ──────────────────────────── */
+  --brand-primary:   #38383B;   /* graphite */
+  --brand-secondary: #A8A6A1;   /* warm stone */
+  --brand-accent:    #DFE0E1;   /* cool light neutral */
+  --brand-dark:      #000000;
+  --brand-light:     #FFFFFF;
+
+  /* ── Value ramp — mixed from the anchors only ────────────────────────── */
+  --v-950: var(--brand-dark);
+  --v-900: color-mix(in srgb, var(--brand-primary) 34%, var(--brand-dark));
+  --v-850: color-mix(in srgb, var(--brand-primary) 68%, var(--brand-dark));
+  --v-800: var(--brand-primary);
+  --v-700: color-mix(in srgb, var(--brand-primary) 84%, var(--brand-secondary));
+  --v-600: color-mix(in srgb, var(--brand-primary) 62%, var(--brand-secondary));
+  --v-500: color-mix(in srgb, var(--brand-primary) 34%, var(--brand-secondary));
+  --v-400: var(--brand-secondary);
+  --v-300: color-mix(in srgb, var(--brand-secondary) 55%, var(--brand-accent));
+  --v-200: var(--brand-accent);
+  --v-150: color-mix(in srgb, var(--brand-accent) 62%, var(--brand-light));
+  --v-100: color-mix(in srgb, var(--brand-accent) 40%, var(--brand-light));
+  --v-050: color-mix(in srgb, var(--brand-accent) 20%, var(--brand-light));
+  --v-000: var(--brand-light);
+
+  /* ── Semantic surfaces ───────────────────────────────────────────────── */
+  --surface-page:    var(--v-000);
+  --surface-half:    var(--v-050);
+  --surface-sunken:  var(--v-100);
+  --surface-stone:   var(--v-150);
+  --surface-ink:     var(--v-800);
+  --surface-ink-deep:var(--v-900);
+  --surface-black:   var(--v-950);
+
+  /* ── Semantic text ───────────────────────────────────────────────────── */
+  --text-strong:   var(--v-900);
+  --text-body:     var(--v-700);
+  --text-muted:    var(--v-600);
+  --text-faint:    var(--v-500);
+  --text-on-ink:   var(--v-000);
+  --text-on-ink-2: color-mix(in srgb, var(--brand-accent) 82%, transparent);
+  --text-on-ink-3: color-mix(in srgb, var(--brand-secondary) 76%, transparent);
+
+  /* ── Rules ───────────────────────────────────────────────────────────── */
+  --rule-hair:    color-mix(in srgb, var(--brand-primary) 16%, transparent);
+  --rule-soft:    color-mix(in srgb, var(--brand-primary) 9%, transparent);
+  --rule-firm:    color-mix(in srgb, var(--brand-primary) 34%, transparent);
+  --rule-on-ink:  color-mix(in srgb, var(--brand-accent) 22%, transparent);
+  --rule-on-ink-2:color-mix(in srgb, var(--brand-accent) 40%, transparent);
+
+  /* ── The silver edge — the page's one material accent ────────────────── */
+  --edge-light: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--v-300) 12%,
+    var(--v-700) 48%,
+    var(--v-300) 82%,
+    transparent 100%);
+  --edge-ink: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--v-400) 10%,
+    var(--v-000) 46%,
+    var(--v-300) 74%,
+    transparent 100%);
+  --edge-ink-v: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--v-400) 12%,
+    var(--v-000) 44%,
+    var(--v-300) 78%,
+    transparent 100%);
+  --edge-spec: linear-gradient(90deg, transparent, var(--v-000), transparent);
+
+  /* Scrims for photography */
+  --scrim-hero: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--brand-dark) 88%, transparent) 0%,
+    color-mix(in srgb, var(--brand-dark) 74%, transparent) 38%,
+    color-mix(in srgb, var(--brand-primary) 52%, transparent) 68%,
+    color-mix(in srgb, var(--brand-primary) 34%, transparent) 100%);
+  --scrim-vignette: radial-gradient(
+    118% 92% at 24% 42%,
+    transparent 34%,
+    color-mix(in srgb, var(--brand-dark) 58%, transparent) 100%);
+  --scrim-hero-mobile: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--brand-dark) 84%, transparent) 0%,
+    color-mix(in srgb, var(--brand-dark) 66%, transparent) 42%,
+    color-mix(in srgb, var(--brand-dark) 80%, transparent) 100%);
+  --scrim-cta: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--brand-dark) 82%, transparent) 0%,
+    color-mix(in srgb, var(--brand-dark) 72%, transparent) 46%,
+    color-mix(in srgb, var(--brand-dark) 90%, transparent) 100%);
+
+  /* ── Type roles ──────────────────────────────────────────────────────── */
+  --font-display: 'Poppins', 'Century Gothic', 'Trebuchet MS', system-ui, sans-serif;
+  --font-body: 'Jost', 'Futura', 'Century Gothic', 'Avenir Next', system-ui, sans-serif;
+
+  --fw-light: 300;
+  --fw-book: 400;
+  --fw-med: 500;
+  --fw-semi: 600;
+
+  /* ── Type scale ──────────────────────────────────────────────────────── */
+  --fs-nano:    0.625rem;    /* 10 — map ticks, legal */
+  --fs-micro:   0.6875rem;   /* 11 — eyebrows, badge labels */
+  --fs-label:   0.75rem;     /* 12 — form labels, nav meta */
+  --fs-caption: 0.8125rem;   /* 13 — captions, microcopy */
+  --fs-sm:      0.875rem;    /* 14 — nav links, list items */
+  --fs-base:    0.9375rem;   /* 15 — dense body */
+  --fs-body:    1.0625rem;   /* 17 — running body */
+  --fs-lead:    clamp(1.0625rem, 0.99rem + 0.36vw, 1.3125rem);
+  --fs-h4:      clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --fs-h3:      clamp(1.125rem, 1.03rem + 0.42vw, 1.4375rem);
+  --fs-h2:      clamp(1.625rem, 1.24rem + 1.72vw, 2.875rem);
+  --fs-h1:      clamp(1.5625rem, -0.8rem + 4.57vw, 3.4rem);
+  --fs-figure:  clamp(2.75rem, 1.6rem + 5.1vw, 6rem);   /* aggregate rating */
+  --fs-numeral: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);
+
+  --lh-tight: 1.06;
+  --lh-snug: 1.18;
+  --lh-head: 1.28;
+  --lh-body: 1.62;
+  --lh-loose: 1.74;
+
+  --tr-tight: -0.028em;
+  --tr-snug: -0.014em;
+  --tr-none: 0em;
+  --tr-wide: 0.06em;
+  --tr-wider: 0.14em;
+  --tr-widest: 0.2em;
+
+  /* ── Space scale ─────────────────────────────────────────────────────── */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.25rem;
+  --s-6: 1.5rem;
+  --s-7: 2rem;
+  --s-8: 2.5rem;
+  --s-9: 3rem;
+  --s-10: 4rem;
+  --s-11: 5rem;
+  --s-12: 6rem;
+  --s-13: 8rem;
+
+  /* ── Section rhythm (consumed by base.css) ───────────────────────────── */
+  --section-y: clamp(4rem, 6.6vw, 8rem);
+  --gutter: clamp(1.25rem, 3vw, 2.5rem);
+  --shell: 1200px;
+  --shell-wide: 1400px;
+  --shell-narrow: 780px;
+
+  /* ── Radii — machined, near-square ───────────────────────────────────── */
+  --r-0: 0px;
+  --r-1: 2px;
+  --r-2: 3px;
+  --r-3: 5px;
+  --r-pill: 999px;
+
+  /* ── Elevation — cool and shallow; this palette cannot carry heavy shadow */
+  --e-0: none;
+  --e-1: 0 1px 2px rgb(0 0 0 / 0.05), 0 2px 8px rgb(0 0 0 / 0.035);
+  --e-2: 0 2px 4px rgb(0 0 0 / 0.05), 0 14px 30px rgb(0 0 0 / 0.07);
+  --e-3: 0 4px 10px rgb(0 0 0 / 0.06), 0 30px 70px rgb(0 0 0 / 0.14);
+  --e-ink: 0 20px 60px rgb(0 0 0 / 0.42);
+  --text-shadow-ink: 0 1px 30px rgb(0 0 0 / 0.38);
+
+  /* ── Icons ───────────────────────────────────────────────────────────── */
+  --icon: 20px;
+  --icon-stroke: 1.4;
+  --icon-lg: 26px;
+  --icon-xl: 34px;
+
+  /* ── Motion — this brand is even and composed, never eager ───────────── */
+  --reveal-rise: 22px;
+  --reveal-dur: 700ms;
+  --reveal-dur-slow: 880ms;
+  --hover-dur: 280ms;
+  --dur-fast: 180ms;
+  --dur-mid: 320ms;
+  --dur-slow: 620ms;
+  --focus-ring: var(--v-800);
+
+  /* ── Chrome ──────────────────────────────────────────────────────────── */
+  --header-h: 104px;
+  --subbar-h: 36px;
+  --navbar-h: 68px;
+  --stickycall-h: 0px;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --header-h: 58px;
+    --subbar-h: 0px;
+    --navbar-h: 58px;
+    --icon: 18px;
+  }
+}

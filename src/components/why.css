@@ -1,0 +1,106 @@
+/* ── Why Us ─────────────────────────────────────────────────────────────────
+   Layout: Single Statement + Supporting Points — the statement carries the
+   hierarchy the entry asks for, the four points sit beneath it as equal
+   evidence rather than as a fourth card grid on the page.
+   Visual style: Icon Line-Art Treatment + a Framed Photo Insert.
+   Animation: Icon Draw-In (a clip wipe across the glyph) as the leading beat
+   of each point's own reveal, then its heading and body.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.why { background: var(--surface-page); }
+
+.why__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1fr);
+  gap: var(--s-12);
+  align-items: start;
+}
+
+.why__statement {
+  grid-template-columns: minmax(0, 1fr);
+  position: sticky;
+  top: calc(var(--navbar-h) + var(--s-8));
+  display: grid;
+  gap: var(--s-5);
+  justify-items: start;
+}
+.why__statement h2 {
+  font-size: var(--fs-h2);
+  max-width: 16ch;
+}
+.why__lede {
+  font-size: var(--fs-lead);
+  font-weight: var(--fw-light);
+  line-height: 1.5;
+  color: var(--text-muted);
+  max-width: 40ch;
+}
+
+.why__frame { margin-block-start: var(--s-3); width: 100%; max-width: 420px; }
+.why__photo { display: block; aspect-ratio: 16 / 10; }
+.why__frame figcaption {
+  margin-block-start: var(--s-3);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-light);
+  line-height: 1.4;
+  color: var(--text-faint);
+}
+.why__cta { margin-block-start: var(--s-3); }
+
+/* ── The four supporting points ─────────────────────────────────────────── */
+.why__points { display: grid; grid-template-columns: minmax(0, 1fr); }
+.why__cell { display: block; }
+
+.why__point {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--s-6);
+  padding-block: var(--s-7);
+}
+.why__point-edge { position: absolute; inset-inline: 0; top: 0; }
+
+.why__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--rule-hair);
+  border-radius: var(--r-1);
+  color: var(--v-800);
+}
+.why__icon .lucide {
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+  stroke-width: var(--icon-stroke);
+}
+
+.why__body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+.why__body h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-med);
+  color: var(--text-strong);
+}
+.why__body p {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-light);
+  line-height: 1.62;
+  color: var(--text-muted);
+  max-width: 58ch;
+}
+
+@media (max-width: 1024px) {
+  .why__grid { grid-template-columns: minmax(0, 1fr); gap: var(--s-9); }
+  .why__statement { position: static; }
+  .why__statement h2 { max-width: 22ch; }
+}
+
+@media (max-width: 900px) {
+  .why__point { gap: var(--s-4); padding-block: var(--s-6); }
+  .why__icon { width: 42px; height: 42px; }
+  .why__frame { max-width: none; }
+}
+
+@media (max-width: 520px) {
+  .why__point { grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+}

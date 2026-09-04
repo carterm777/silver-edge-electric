@@ -1,0 +1,269 @@
+You are building a one-page cold-outreach demo site in React. This needs to look like a genuinely premium, $10,000+ custom local-business build — luxurious, high-fidelity, restrained, not a template, not AI-generated. This is a redesign concept for a business that already has a live site at http://www.silver-edge.ca/ — services, facts, and positioning were extracted from that page, but ALL copy below is freshly written, not reworded from the source.
+
+WORKFLOW — FOLLOW EXACTLY
+1. This project's working directory already contains a copy of the section-style-repo-animation+ folder. List it first to confirm what's actually there, then read front-end-design.md from its root exactly: build a token system first (but use the fonts/colors given below as fixed — don't re-derive a palette), avoid its named generic-AI-design defaults, watch CSS selector specificity so section-level and element-level classes don't cancel each other out, and take screenshots to self-critique against this brief before opening the preview.
+2. For EVERY section on this page, consult section-style-repo.md and its references/ subfolder (also inside that same folder) and run its full three-phase process (layout, visual style, animation) from its own reference files — don't skip straight to code. Use its selection log to keep real variety across sections on this page. When multiple options fit equally well, prefer whichever reads more premium, restrained, and editorial-caliber for this trade and city. Run both finishing passes (elevation sweep, coherence sweep) after every section is built once. If a referenced file isn't at the exact path expected, list the folder's contents and use whichever files you actually find — don't silently skip the design system.
+3. Build the full site locally.
+4. Before opening the preview, take screenshots of the desktop and primary mobile breakpoints and self-critique the whole page against this brief per front-end-design.md's critique guidance — fix anything that reads generic, templated, or unfinished before I see it.
+5. Open a live preview window automatically once built. Wait for review.
+6. I will request changes/fixes — make them in this same session.
+7. Do NOT deploy until I explicitly say "push and deploy."
+8. On "push and deploy": call deploy_to_vercel with target: production,
+   name: silver-edge-electric (fallback to silver-edge-electric-southern-alberta only
+   if the exact name is unavailable). Before deploying, initialize git in this project directory if it isn't already a git repo, stage and commit all files, add the remote https://github.com/carterm777/silver-edge-electric (this repo already exists on GitHub, created empty), and push to its main branch.
+9. Add <meta name="robots" content="noindex, nofollow"> to every page.
+
+HEADING STRUCTURE (mandatory): one H1, one H2 per section, H3 for sub-items, never
+skip a level, never fake a heading with a styled div. Title Case all headers.
+
+HERO LAYOUT (mandatory — this overrides the design system's usual full delegation for
+this one section): keep the hero content container wide enough that the H1 wraps
+across 2-3 lines, never near-single-word lines from excess side padding. Align
+the eyebrow/kicker line above the H1 with the top edge of the photo-diagnosis widget on
+the same vertical line. Directly beneath the H1/subheadline, place the 4 value-badges/
+objection-overcomers strip (short label + real Lucide icon each). Above the fold, on
+both desktop and the primary mobile breakpoint, with zero scrolling required: H1 +
+subheadline, the 4 value-badges, the primary click-to-call button, the secondary CTA
+button (to Services), and the photo-diagnosis widget must all be visible. (The
+Google-reviews strip is not part of the hero — see the Google Reviews Section below.)
+
+GOOGLE REVIEWS SECTION (mandatory, fixed position — also overrides full delegation): a
+standalone section renders directly below the hero, before the Trust Badges Banner,
+never inside the hero and never moved further down the page. It carries the
+fabricated, hyper-realistic placeholder Google-reviews strip (4-5 reviews, 5-star,
+first-name-plus-last-initial attribution, styled to read unmistakably as a
+Google-reviews block with a prominent aggregate-rating callout). Give this section
+real design ambition — a proper grid or carousel layout, generous spacing — since it
+no longer has to compete for space inside the hero.
+
+TRUST BADGES BANNER (mandatory, fixed position — also overrides full delegation): a
+full-width banner renders directly below the Google Reviews Section, never inside the
+hero and never moved further down the page. It carries real third-party trust marks —
+licenses, certifications, BBB accreditation/rating, trade-association membership,
+awards — pulled from the business's real facts, if provided or available; never a
+fabricated specific credential. Pad out to exactly four badges with generic,
+unquantified trust language ("Licensed & Insured," "Locally Owned & Operated," "Years
+of Experience," "Satisfaction Guaranteed") where fewer than four real credentials
+exist. Each badge uses one real, meaning-matched Lucide icon (shield for licensing/
+certification, badge/check for BBB/association accreditation, an award/star icon for
+a named award, or the nearest real equivalent) — never a generic dot/bullet standing
+in for an icon, never two badges sharing an icon. Match icon size, stroke weight, and
+alignment across all four so the row reads as one professionally designed system, not
+four mismatched glyphs.
+
+IMAGES: check this project folder for a folder named "images." If it exists, use only
+those images. If it doesn't exist, ask me whether to generate images via the
+Higgsfield MCP before building any image content — don't assume either way.
+
+BUSINESS INFO
+Business Name: Silver Edge Electric
+Location: Southern Alberta (no single confirmed home city on the source site)
+Industry: Commercial, industrial, and residential electrical contracting
+Source: Existing site — http://www.silver-edge.ca/
+Extracted/decided facts summary: Real — "full service electrical contracting in
+Southern Alberta, specializing in commercial, industrial & residential electrical
+projects," more than 10 years in business, a "Request a project estimate &
+consultation" CTA, nav of About/Services/Our Work/Contact, phone (403) 614-7067. No
+specific home city, email, or named service-area towns were stated on the source site,
+so the town list below is a plausible Southern Alberta regional spread, not a
+confirmed list.
+Meta description (150-160 chars, local, not a copy of the hero): Full-service
+electrical contractor serving commercial, industrial, and residential clients across
+Southern Alberta for more than 10 years. Free estimates.
+
+BRAND IDENTITY
+Fonts: Display — Poppins / Body — futura-pt, falling back to a similar geometric sans
+(e.g. Century Gothic or Poppins) if futura-pt isn't available as a free web font
+(source: extracted — single-page live computed-style sweep only; cross-page recheck
+and screenshot sanity check were not performed. Poppins was read from the header and
+CTA button computed font-family; futura-pt appeared in the same page's computed
+font-family list but is a paid/licensed font family, so a freely-loadable substitute
+in the same geometric-sans style is the practical choice for the build.)
+Colors: Primary #38383B / Secondary #A8A6A1 / Accent #DFE0E1 / Dark #000000 / Light
+#FFFFFF (source: extracted (single-page live computed-style sweep only — cross-page
+recheck and screenshot sanity check were not performed; see notes). #38383B and
+#A8A6A1 were both present in the sweep's topColors list, with #A8A6A1 confirmed as the
+literal computed background-color of the site's CTA button; #DFE0E1 is a light neutral
+also in the sweep; #000000 and #FFFFFF are the computed text and background colors.
+This is a genuinely monochrome/neutral palette in the real data, not a shortfall in
+extraction — the source site itself carries no saturated brand color.)
+Voice: Understated, contractor-grade professional — restrained, matching the site's
+own monochrome branding, built for commercial and industrial credibility without
+noise. Vocabulary do: contractor, project, scope, code-compliant. Vocabulary don't: no
+folksy flourishes, no exclamation points, no "family-owned" framing (not confirmed).
+Register: even and composed, closer to a professional-services tone than a
+blue-collar residential one.
+
+CONTACT INFO (real where found, placeholder clearly marked otherwise)
+Phone: (403) 614-7067 (real)
+Email: contact@silveredgeelectric.com (placeholder — no email found on source site)
+Address: Southern Alberta, Canada (placeholder — no address or specific home city
+found)
+
+HEADER STRUCTURE
+Subheader: (403) 614-7067 / contact@silveredgeelectric.com / Southern Alberta, Canada
+Nav (centered): Home · About · Services (dropdown: Commercial Electrical Contracting,
+Industrial Electrical Systems, Residential Electrical, Tenant Improvements, Panel
+Upgrades & Service Changes, Electrical Troubleshooting & Repairs, Lighting
+Installation & Design, Electrical Safety Inspections, New Construction Wiring,
+Renovation Wiring, Generator & Backup Power Systems, Surge Protection, Small Business
+Electrical, Electrical Maintenance Contracts) · Service Areas (dropdown: Lethbridge,
+Brooks, Taber, Vulcan, Claresholm, Pincher Creek, Fort Macleod, Coaldale) · FAQ · Blog
+· Contact
+Anchor map: Services → Core Services section / Service Areas → Coverage section /
+About → Story / FAQ → FAQ / Contact → Final CTA / Blog → Footer
+Right: click-to-call button + phone icon
+Mobile: no hamburger — nav reduces to click-to-call only while scrolling
+
+FOOTER STRUCTURE (4 columns):
+1. Logo (wordmark) + mission statement + social icons: "We're a full-service
+   electrical contractor serving commercial, industrial, and residential clients
+   across Southern Alberta, with more than 10 years of project experience behind
+   every job."
+2. "Our Services" + Commercial Electrical Contracting, Industrial Electrical Systems,
+   Residential Electrical, Tenant Improvements & Renovations, Panel Upgrades &
+   Service Changes
+3. "Quick Links" + Home, About, Services, Service Areas, FAQ, Contact
+4. Silver Edge Electric, Southern Alberta, Canada (placeholder), (403) 614-7067
+
+CONVERSION ELEMENTS — build all of these, none functional/backend-connected:
+- Photo-diagnosis uploader in hero (image + description + name/phone, client-side
+  success state, no backend) — this is the centerpiece and this page's signature
+  element; give it the most design ambition on the page.
+- 4 value-badges/objection-overcomers directly in the hero, beneath the headline/
+  subheadline: Free Project Estimates (icon: clipboard-list), Licensed & Insured
+  (icon: shield-check), Satisfaction Guaranteed (icon: thumbs-up), Locally Owned &
+  Operated (icon: map-pin).
+- Same primary CTA repeated at natural points down the page — one ask, several spots.
+- Click-to-call everywhere (tel: links) + mobile sticky call-only bar.
+- Click-to-text (sms: link) in the final CTA and footer.
+- Fabricated, hyper-realistic placeholder Google-reviews strip in its own Google
+  Reviews Section directly below the hero, never inside the hero — label as
+  placeholder needing real GBP reviews before real launch.
+- Trust Badges Banner directly below the Google Reviews Section — one real, confirmed
+  credential (10+ years in business) plus three generic, unquantified trust badges:
+  Fully Licensed & Insured (icon: shield-check), 10+ Years In Business (icon: award),
+  Locally Owned & Operated (icon: map-pin), Satisfaction Guaranteed (icon:
+  check-circle).
+- Reassurance microcopy beside every form ("no cost, no obligation, we don't share
+  your info").
+- Convincing non-backend success state on every form.
+(No financing/payment-plan callout and no 24-hour/emergency messaging — neither was
+literally stated on the source site, so neither appears anywhere on the page.)
+
+Apply brand fonts/colors via CSS variables throughout, no hardcoded values.
+
+PAGE COPY
+
+[HERO]
+Headline: Professional Commercial & Industrial Electricians Serving Southern Alberta
+Subheadline: A full-service Southern Alberta contractor delivering commercial,
+industrial, and residential electrical work backed by more than a decade of
+hands-on project experience.
+Value badges: Free Project Estimates (clipboard-list) · Licensed & Insured
+(shield-check) · Satisfaction Guaranteed (thumbs-up) · Locally Owned & Operated
+(map-pin)
+
+[GOOGLE REVIEWS SECTION]
+Aggregate: 4.9 out of 5, based on 38 Google reviews
+1. Marcus T., Property Manager — ★★★★★ — "Rewired the electrical room in our
+   commercial building without disrupting tenants during business hours."
+2. Erin V. — ★★★★★ — "Handled our home's panel upgrade in a single day and left the
+   workspace cleaner than they found it."
+3. Dale H., Site Supervisor — ★★★★★ — "Kept our industrial project on schedule even
+   after a change order added two extra circuits."
+4. Sandra K. — ★★★★★ — "Gave us a written estimate that matched the final invoice on
+   our basement renovation."
+5. Brent O. — ★★★★★ — "Answered every question about code requirements before we
+   signed off on the design."
+
+[TRUST BADGES BANNER]
+Fully Licensed & Insured (shield-check) · 10+ Years In Business (award) · Locally
+Owned & Operated (map-pin) · Satisfaction Guaranteed (check-circle)
+
+[WHY US]
+1. Commercial & Industrial Project Experience (icon: building-2) — We've wired
+   everything from tenant improvements to industrial electrical rooms, so a project
+   of any scale gets handled by a crew that has done it before.
+2. Licensed, Code-Compliant Work (icon: shield-check) — Every project meets the
+   electrical code an inspector checks, from a single-family home to a multi-unit
+   commercial build.
+3. On-Time Project Delivery (icon: calendar-check) — We plan around your timeline and
+   communicate early if anything changes, so a project schedule never becomes a
+   surprise.
+4. Straightforward, Written Estimates (icon: file-check) — You get a clear, written
+   estimate before work starts, and that's the number that shows up on the final
+   invoice.
+
+[SERVICES]
+1. Commercial Electrical Contracting — Wiring, panel work, and lighting for retail,
+   office, and mixed-use buildings, planned around your operating hours.
+2. Industrial Electrical Systems — Power distribution, equipment hookups, and
+   electrical room work built to keep a facility running on schedule.
+3. Residential Electrical — Panel upgrades, rewiring, and lighting for homes across
+   Southern Alberta.
+4. Tenant Improvements & Renovations — Electrical scope for a build-out or
+   renovation, coordinated with your other trades and your timeline.
+5. Panel Upgrades & Service Changes — Replacing an aging or undersized service with
+   one built for current and future load.
+6. Electrical Troubleshooting & Repairs — Diagnosing the real cause of a fault, not
+   just patching the symptom.
+
+[SERVICE AREA / COVERAGE]
+Our project list runs from single-family homes to multi-unit commercial builds across
+Southern Alberta. We serve Lethbridge, Brooks, Taber, Vulcan, Claresholm, Pincher
+Creek, Fort Macleod, and Coaldale, with the same estimate process and crew on every
+project regardless of scale.
+
+[OUR STORY]
+Ten years in, the range of work hasn't gotten smaller — if anything, it's grown. A
+given month might include a tenant improvement in a strip mall, a panel upgrade in a
+1980s bungalow, and a section of an industrial electrical room that can't go down for
+more than a scheduled window. Working across all three keeps a crew sharp in ways
+specializing in just one never would.
+
+The standard doesn't change based on the size of the client. A homeowner gets the same
+written estimate, the same code-compliant work, and the same crew showing up when they
+said they would as a property manager overseeing a multi-unit build. That consistency
+is the real foundation the business was built on, not a slogan added after the fact.
+
+Southern Alberta's commercial and industrial sector runs on tight schedules, and a
+project that stalls because of an electrical delay costs real money for everyone
+involved. We plan for that by communicating early when something changes, rather than
+letting a client find out the timeline slipped when the crew doesn't show up.
+
+[FINAL CTA]
+Headline: Get A Written Estimate For Your Next Project
+Supporting sentence: Call to talk through your commercial, industrial, or residential
+electrical project — we'll give you a clear estimate before anything starts.
+Action: Call (403) 614-7067 or text us to get started.
+
+[FAQ]
+Q: Do you work on commercial and industrial projects, or just homes?
+A: All three. We take on tenant improvements, industrial electrical systems, and
+residential projects, often in the same week.
+
+Q: How long have you been in business?
+A: We've been a full-service electrical contractor in Southern Alberta for more than
+10 years, working across commercial, industrial, and residential projects.
+
+Q: Can you work around an active business or job site?
+A: Yes. We plan commercial and industrial work around your operating hours and
+communicate ahead of time if a schedule needs to shift.
+
+Q: Do you provide written estimates?
+A: Every project starts with a written estimate, so you know the scope and cost
+before any work begins.
+
+Q: What areas of Southern Alberta do you serve?
+A: We take on commercial, industrial, and residential projects across Southern
+Alberta, from in-town builds to larger regional projects.
+
+[FOOTER COPY]
+Mission statement: We're a full-service electrical contractor serving commercial,
+industrial, and residential clients across Southern Alberta, with more than 10 years
+of project experience behind every job.
+Footer services list: Commercial Electrical Contracting, Industrial Electrical
+Systems, Residential Electrical, Tenant Improvements & Renovations, Panel Upgrades &
+Service Changes
+Footer quick links: Home, About, Services, Service Areas, FAQ, Contact

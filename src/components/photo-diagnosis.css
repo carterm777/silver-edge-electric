@@ -1,0 +1,300 @@
+/* ── Photo diagnosis — the signature element ────────────────────────────────
+   Layout: Hero with Embedded Quote/Booking Form (the form half).
+   Visual style: Full-Bleed Immersive Widget — no container edge; the
+   surrounding negative space and one accent hairline do the framing.
+   Animation: Widget Entrance on load, Field Focus Highlight, Aperture Reveal
+   on the preview, Success State Confirmation.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.pd {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  height: 100%;
+  padding-block-start: var(--s-7);
+}
+
+/* The one accent hairline: the seam where the white field meets the photo. */
+.pd__edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--edge-light);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: pd-edge 900ms var(--ease-out-quart) 420ms forwards;
+}
+@keyframes pd-edge { to { transform: scaleX(1); } }
+
+.pd__form,
+.pd__done {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.pd__head { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+.pd__kicker { color: var(--text-faint); }
+.pd__title {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-med);
+  color: var(--text-strong);
+}
+.pd__lede {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-light);
+  line-height: 1.55;
+  color: var(--text-muted);
+  max-width: 46ch;
+}
+
+/* ── Drop target — machined corner ticks instead of a dashed box ─────────── */
+.pd__drop {
+  position: relative;
+  display: grid;
+  min-height: 168px;
+  background: var(--surface-half);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--r-1);
+  overflow: hidden;
+  transition:
+    background-color var(--dur-mid) var(--ease-out-cubic),
+    border-color var(--dur-mid) var(--ease-out-cubic);
+}
+.pd__drop[data-dragging='true'] {
+  background: var(--surface-sunken);
+  border-color: var(--rule-firm);
+}
+.pd__drop[data-has-photo='true'] { background: var(--surface-ink); min-height: 190px; }
+
+.pd__tick {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 0 solid var(--v-600);
+  z-index: 2;
+  pointer-events: none;
+  transition: width var(--dur-mid) var(--ease-out-quart), height var(--dur-mid) var(--ease-out-quart);
+}
+.pd__tick--tl { top: 9px; left: 9px; border-top-width: 1px; border-left-width: 1px; }
+.pd__tick--tr { top: 9px; right: 9px; border-top-width: 1px; border-right-width: 1px; }
+.pd__tick--bl { bottom: 9px; left: 9px; border-bottom-width: 1px; border-left-width: 1px; }
+.pd__tick--br { bottom: 9px; right: 9px; border-bottom-width: 1px; border-right-width: 1px; }
+.pd__drop:hover .pd__tick,
+.pd__drop[data-dragging='true'] .pd__tick { width: 26px; height: 26px; }
+.pd__drop[data-has-photo='true'] .pd__tick { border-color: var(--v-300); }
+
+.pd__dropbtn {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: var(--s-2);
+  padding: var(--s-7) var(--s-6);
+  text-align: center;
+  width: 100%;
+  min-height: inherit;
+}
+.pd__dropicon {
+  width: var(--icon-xl);
+  height: var(--icon-xl);
+  color: var(--text-faint);
+  transition: color var(--dur-mid) var(--ease-out-cubic), transform var(--dur-mid) var(--ease-out-quart);
+}
+.pd__drop:hover .pd__dropicon { color: var(--text-body); transform: translateY(-2px); }
+.pd__dropline {
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-wider);
+  text-transform: uppercase;
+  color: var(--text-strong);
+}
+.pd__drophint--short { display: none; }
+.pd__drophint {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-light);
+  line-height: 1.45;
+  color: var(--text-faint);
+  max-width: 34ch;
+}
+
+/* Aperture Reveal — the preview opens from the centre line like a shutter. */
+.pd__preview {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  min-height: 190px;
+  object-fit: cover;
+  clip-path: inset(50% 0 50% 0);
+  animation: pd-aperture 620ms var(--ease-out-quart) forwards;
+}
+@keyframes pd-aperture {
+  from { clip-path: inset(50% 0 50% 0); opacity: 0.4; }
+  to   { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+.pd__preview-bar {
+  grid-area: 1 / 1;
+  align-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: color-mix(in srgb, var(--brand-dark) 62%, transparent);
+  z-index: 3;
+}
+.pd__filename {
+  font-size: var(--fs-caption);
+  color: var(--text-on-ink-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pd__clear {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-wide);
+  text-transform: uppercase;
+  color: var(--text-on-ink);
+  flex: none;
+  transition: opacity var(--dur-fast);
+}
+.pd__clear .lucide { width: 14px; height: 14px; }
+.pd__clear:hover { opacity: 0.7; }
+
+/* ── Fields — minimal underline inputs with a silver focus edge ─────────── */
+.pd__fields { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+.pd__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); }
+.pd__field { display: grid; gap: var(--s-2); min-width: 0; }
+.pd__label {
+  font-family: var(--font-body);
+  font-size: var(--fs-nano);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-widest);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  transition: color var(--dur-fast) var(--ease-out-cubic);
+}
+.pd__field:focus-within .pd__label { color: var(--text-strong); }
+
+.pd__input {
+  width: 100%;
+  padding: var(--s-2) 0 var(--s-3);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule-hair);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text-strong);
+  transition: border-color var(--dur-mid) var(--ease-out-cubic);
+}
+.pd__input::placeholder { color: var(--v-400); }
+.pd__input:focus {
+  border-bottom-color: var(--v-800);
+  border-bottom-width: 2px;
+  padding-bottom: calc(var(--s-3) - 1px);
+}
+.pd__input:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+.pd__input--area { resize: vertical; min-height: 54px; line-height: 1.5; }
+
+.pd__err {
+  font-size: var(--fs-caption);
+  color: var(--text-strong);
+  font-weight: var(--fw-med);
+  border-left: 2px solid var(--v-800);
+  padding-left: var(--s-2);
+}
+.pd__err--file { margin-top: calc(var(--s-3) * -1); }
+
+.pd__expand { display: none; }
+.pd__submit { margin-top: var(--s-1); }
+.pd__reassure { margin-top: auto; padding-top: var(--s-3); }
+
+/* ── Success state ──────────────────────────────────────────────────────── */
+.pd__done { gap: var(--s-4); }
+.pd__check { display: block; width: 44px; height: 44px; }
+.pd__check svg { width: 100%; height: 100%; }
+.pd__check-ring {
+  fill: none;
+  stroke: var(--rule-firm);
+  stroke-width: 1;
+}
+.pd__check-tick {
+  fill: none;
+  stroke: var(--v-800);
+  stroke-width: 1.8;
+  stroke-linecap: square;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: pd-tick 620ms var(--ease-out-quart) 180ms forwards;
+}
+@keyframes pd-tick { to { stroke-dashoffset: 0; } }
+
+.pd__thumb { display: grid; gap: var(--s-2); max-width: 220px; }
+.pd__thumb-img { display: block; aspect-ratio: 4 / 3; }
+.pd__thumb figcaption {
+  font-size: var(--fs-nano);
+  letter-spacing: var(--tr-wider);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.pd__next { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+.pd__next li {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: var(--s-3);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-light);
+  line-height: 1.5;
+  color: var(--text-muted);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--rule-soft);
+}
+.pd__next span {
+  font-family: var(--font-display);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-wide);
+  color: var(--text-faint);
+  padding-top: 3px;
+}
+.pd__done-actions { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pd__edge { transform: scaleX(1); animation: none; }
+  .pd__preview { clip-path: none; animation: none; }
+  .pd__check-tick { stroke-dashoffset: 0; animation: none; }
+}
+
+/* ── Compact initial state on mobile — protects the fold ─────────────────── */
+@media (max-width: 900px) {
+  .pd { gap: var(--s-4); padding-block-start: var(--s-6); }
+  .pd__form { gap: var(--s-4); }
+  .pd__drop { min-height: 104px; }
+  .pd__dropbtn { padding: var(--s-4); gap: var(--s-1); }
+  .pd__drophint--long { display: none; }
+  .pd__drophint--short { display: block; }
+  .pd__dropicon { width: var(--icon-lg); height: var(--icon-lg); }
+  .pd__lede { font-size: var(--fs-caption); }
+  .pd__expand { display: inline-flex; }
+  .pd__fields[data-open='false'] { display: none; }
+  .pd__fields[data-open='true'] { animation: pd-fields-in 420ms var(--ease-out-quart) both; }
+  .pd__row { grid-template-columns: 1fr; gap: var(--s-4); }
+}
+@keyframes pd-fields-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* The expand button must disappear once the fields are open. */
+.pd__form:has(.pd__fields[data-open='true']) .pd__expand { display: none; }
